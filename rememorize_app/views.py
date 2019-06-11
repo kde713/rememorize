@@ -24,7 +24,10 @@ class CardView(View):
                 'card_value': card_object.value
             })
 
-        picked_card = random.choice(card_box)
+        if len(card_box) > 1:
+            picked_card = random.choice(card_box)
+        else:
+            picked_card = {'card_id': None}
 
         return render(request, 'card.html', picked_card)
 

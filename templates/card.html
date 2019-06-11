@@ -106,20 +106,24 @@
     </header>
 
     <main role="main" class="inner cover">
-        <h1 id="card-key" class="cover-heading hide-content">{{ card_key }}</h1>
-        <p id="card-value" class="lead hide-content">{{ card_value }}</p>
-        <p class="lead" id="showAnswerButtonContainer">
-            <button role="button" class="btn btn-lg btn-secondary" onclick="showAnswer()">정답보기</button>
-        </p>
-        <form id="resultForm" action="./" method="post">
-            {% csrf_token %}
-            <input type="hidden" id="cardId" name="cardId" value="{{ card_id }}">
-            <input type="hidden" id="isPassed" name="isPassed" value="0">
-            <p class="lead">
-                <button role="button" class="btn btn-lg btn-success" onclick="submitResult(1)">PASS</button>
-                <button role="button" class="btn btn-lg btn-danger" onclick="submitResult(0)">FAIL</button>
+        {% if card_id %}
+            <h1 id="card-key" class="cover-heading hide-content">{{ card_key }}</h1>
+            <p id="card-value" class="lead hide-content">{{ card_value }}</p>
+            <p class="lead" id="showAnswerButtonContainer">
+                <button role="button" class="btn btn-lg btn-secondary" onclick="showAnswer()">정답보기</button>
             </p>
-        </form>
+            <form id="resultForm" action="./" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="cardId" name="cardId" value="{{ card_id }}">
+                <input type="hidden" id="isPassed" name="isPassed" value="0">
+                <p class="lead">
+                    <button role="button" class="btn btn-lg btn-success" onclick="submitResult(1)">PASS</button>
+                    <button role="button" class="btn btn-lg btn-danger" onclick="submitResult(0)">FAIL</button>
+                </p>
+            </form>
+        {% else %}
+            <p class="lead">현재 Remind 대상 카드가 없습니다.</p>
+        {% endif %}
     </main>
 
     <footer class="mastfoot mt-auto">
@@ -141,20 +145,22 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
-<script type="text/javascript">
-    function showAnswer() {
-        $('#showAnswerButtonContainer').hide();
-        $('.hide-content').removeClass('hide-content');
-    }
+{% if card_id %}
+    <script type="text/javascript">
+        function showAnswer() {
+            $('#showAnswerButtonContainer').hide();
+            $('.hide-content').removeClass('hide-content');
+        }
 
-    function submitResult(isPassed) {
-        $('#isPassed').val(String(isPassed));
-        $('#resultForm').submit();
-    }
+        function submitResult(isPassed) {
+            $('#isPassed').val(String(isPassed));
+            $('#resultForm').submit();
+        }
 
-    $(function () {
-        $(`#${Math.floor(Math.random() * 10) % 2 === 1 ? 'card-key' : 'card-value'}`).removeClass('hide-content');
-    });
-</script>
+        $(function () {
+            $(`#${Math.floor(Math.random() * 10) % 2 === 1 ? 'card-key' : 'card-value'}`).removeClass('hide-content');
+        });
+    </script>
+{% endif %}
 </body>
 </html>
