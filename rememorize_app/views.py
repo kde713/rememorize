@@ -21,11 +21,14 @@ class CardView(View):
             card_box.append({
                 'card_id': card_object.id,
                 'card_key': card_object.key,
-                'card_value': card_object.value
+                'card_value': card_object.value,
+                'card_type': card_object.show_type,
             })
 
         if len(card_box) >= 1:
             picked_card = random.choice(card_box)
+            if picked_card['card_type'] == 0:
+                picked_card['card_type'] = random.randint(1, 2)
         else:
             picked_card = {'card_id': None}
 

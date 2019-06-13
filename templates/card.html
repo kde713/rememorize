@@ -158,7 +158,8 @@
         }
 
         $(function () {
-            $(`#${Math.floor(Math.random() * 10) % 2 === 1 ? 'card-key' : 'card-value'}`).removeClass('hide-content');
+            const cardType = Number("{{ card_type }}");
+            $(`#${cardType === 1 ? 'card-key' : 'card-value'}`).removeClass('hide-content');
         });
     </script>
 {% endif %}
