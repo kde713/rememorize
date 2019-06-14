@@ -4,7 +4,7 @@ from django.db import models
 
 
 class MemCard(models.Model):
-    REMIND_PHASE = [0, 1, 17, 52, 121, 241, 483]
+    REMIND_PHASE = [0, 1, 17, 52, 86, 121, 241, 483]
     TYPE_CHOICE = (
         (0, 'random'),
         (1, 'show_key'),
