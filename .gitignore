@@ -1,5 +1,14 @@
+# IDE
 .idea
+
+# Python
 venv
-.env
-db.sqlite3
 *.pyc
+__pycache__
+
+# Dotenv
+.env
+
+# Database
+db.sqlite3
+
